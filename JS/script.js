@@ -10,7 +10,7 @@ const extraStorageCost = document.getElementById('extra-storage-cost');
 /* Delivery Charge */
 const freeCharge = document.getElementById('free-charge');
 const deliveryCharge = document.getElementById('delivery-charge');
-const deliveryChargeDisplay = document.getElementById('delivery-charge-display');
+const extraDeliveryCost = document.getElementById('extra-delivery-cost');
 /* Total Price */
 const totalPrice = document.getElementById('total-price');
 /* Best Price */
@@ -21,43 +21,64 @@ const applyButton = document.getElementById('apply-button');
 /* Total */
 const total = document.getElementById('total');
 
+/* Function getID */
+
+function getId(id, isBoolean, value) {
+    const extraIdCost = document.getElementById(id);
+    if (isBoolean == true && value == 0) {
+        extraIdCost.innerText = '0';
+    }
+    else if (isBoolean == false && id == 'extra-memory-cost' && value == 1) {
+        extraIdCost.innerText = '180';
+    }
+    else if (isBoolean == false && id == 'extra-storage-cost' && value == 1) {
+        extraIdCost.innerText = '100';
+    }
+    else if (isBoolean == false && id == 'extra-storage-cost' && value == 2) {
+        extraIdCost.innerText = '180';
+    }
+    else if (isBoolean == false && id == 'extra-delivery-cost' && value == 1) {
+        extraIdCost.innerText = '20';
+    }
+}
+
 /* Memory Onclick */
 memory8.addEventListener('click', function () {
-    extraMemoryCost.innerText = '0';
+    getId('extra-memory-cost', true, 0);
     updateTotal();
 })
 memory16.addEventListener('click', function () {
-    extraMemoryCost.innerText = '180';
+    getId('extra-memory-cost', false, 1);
     updateTotal();
 })
 /* Storage Onclick */
 ssd256.addEventListener('click', function () {
-    extraStorageCost.innerText = '0';
+    getId('extra-storage-cost', true, 0);
     updateTotal();
 })
 ssd512.addEventListener('click', function () {
-    extraStorageCost.innerText = '100';
+    getId('extra-storage-cost', false, 1)
     updateTotal();
 })
 ssd1tb.addEventListener('click', function () {
-    extraStorageCost.innerText = '100';
+    getId('extra-storage-cost', false, 2)
     updateTotal();
 })
 /* Delivery Charge Onclick */
 freeCharge.addEventListener('click', function () {
-    deliveryChargeDisplay.innerText = '0';
+    getId('extra-delivery-cost', true, 0);
     updateTotal();
 })
 deliveryCharge.addEventListener('click', function () {
-    deliveryChargeDisplay.innerText = '20';
+    getId('extra-delivery-cost', false, 1);
     updateTotal();
 })
-/* Update Total */
+/* Function updateTotal */
 function updateTotal() {
     const bestPriceUpdate = Number(bestPrice.innerText);
     const extraMemoryCostUpdate = Number(extraMemoryCost.innerText);
     const extraStorageCostUpdate = Number(extraStorageCost.innerText);
-    const deliveryChargeDisplayUpdate = Number(deliveryChargeDisplay.innerText);
+    const deliveryChargeDisplayUpdate = Number(extraDeliveryCost.innerText);
     const totalCost = bestPriceUpdate + extraMemoryCostUpdate + extraStorageCostUpdate + deliveryChargeDisplayUpdate;
     totalPrice.innerText = totalCost;
     total.innerText = totalCost
